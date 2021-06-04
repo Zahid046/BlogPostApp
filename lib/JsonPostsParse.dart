@@ -1,6 +1,7 @@
 import 'package:blog_post_app/Services.dart';
 import 'package:flutter/material.dart';
 
+import 'DetailScreen.dart';
 import 'Posts.dart';
 
 class JsonPostsParse extends StatefulWidget {
@@ -52,6 +53,15 @@ class _JsonPostsParseState extends State<JsonPostsParse> {
                           ? post.title.substring(0, 30) + "...."
                           : post.title,
                     ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              DetailScreen(post: _posts[index]),
+                        ),
+                      );
+                    },
                     subtitle: Text(post.body.length > 100
                         ? post.body.substring(0, 100) + "...."
                         : post.body),
