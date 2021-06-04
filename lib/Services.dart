@@ -4,7 +4,7 @@ import 'package:blog_post_app/Posts.dart';
 import 'package:http/http.dart';
 
 class Services {
-  static const String url = "https://jsonplaceholder.typicode.com/posts";
+  static var url = Uri.parse("https://jsonplaceholder.typicode.com/posts");
 
   static Future<List<Post>> getPosts() async {
     try {
@@ -22,7 +22,8 @@ class Services {
         return posts;
       }
     } catch (e) {
-      return List<Post>();
+      return <Post>[];
     }
+    throw "";
   }
 }

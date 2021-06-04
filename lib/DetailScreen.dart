@@ -5,7 +5,7 @@ import 'Posts.dart';
 class DetailScreen extends StatelessWidget {
   final Post post;
 
-  DetailScreen({@required this.post});
+  DetailScreen({required this.post});
 
   @override
   Widget build(BuildContext context) {

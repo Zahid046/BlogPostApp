@@ -12,8 +12,8 @@ class JsonPostsParse extends StatefulWidget {
 }
 
 class _JsonPostsParseState extends State<JsonPostsParse> {
-  List<Post> _posts;
-  bool _loading;
+  List<Post> _posts = [];
+  bool _loading = true;
 
   @override
   void initState() {
@@ -43,6 +43,7 @@ class _JsonPostsParseState extends State<JsonPostsParse> {
         child: Container(
           color: Colors.white,
           child: ListView.builder(
+              // ignore: unnecessary_null_comparison
               itemCount: null == _posts ? 0 : _posts.length,
               itemBuilder: (context, index) {
                 Post post = _posts[index];
