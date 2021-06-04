@@ -1,4 +1,5 @@
 import 'package:blog_post_app/Services.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'DetailScreen.dart';
@@ -14,6 +15,9 @@ class JsonPostsParse extends StatefulWidget {
 class _JsonPostsParseState extends State<JsonPostsParse> {
   List<Post> _posts = [];
   bool _loading = true;
+  ScrollController _scrollController = ScrollController();
+  List<Post> _fullList = [];
+  int _currentMax = 15;
 
   @override
   void initState() {
@@ -24,11 +28,44 @@ class _JsonPostsParseState extends State<JsonPostsParse> {
 
     Services.getPosts().then((posts) {
       setState(() {
-        _posts = posts;
+        _fullList = posts;
+        _posts = posts.sublist(0, 15);
         _loading = false;
         //print(_posts);
       });
     });
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _getMoreData();
+      }
+    });
+  }
+
+  _getMoreData() {
+    //print("Get more data");
+
+    if (_currentMax < 90) {
+      for (int i = _currentMax; i < _currentMax + 15; i++) {
+        _posts.add(_fullList[i]);
+        print(i);
+      }
+      _currentMax = _currentMax + 15;
+
+      setState(() {});
+    } else {
+      if (_currentMax > 99) {
+        print("Data Ended");
+      } else {
+        for (int i = _currentMax; i < _currentMax + 10; i++) {
+          _posts.add(_fullList[i]);
+          print(i);
+        }
+        _currentMax = _currentMax + 10;
+
+        setState(() {});
+      }
+    }
   }
 
   @override
@@ -43,9 +80,13 @@ class _JsonPostsParseState extends State<JsonPostsParse> {
         child: Container(
           color: Colors.white,
           child: ListView.builder(
+              controller: _scrollController,
               // ignore: unnecessary_null_comparison
               itemCount: null == _posts ? 0 : _posts.length,
               itemBuilder: (context, index) {
+                // if (index == _posts.length) {
+                //   return CupertinoActivityIndicator();
+                // }
                 Post post = _posts[index];
                 return Card(
                   child: ListTile(
