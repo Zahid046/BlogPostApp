@@ -17,7 +17,7 @@ class _JsonPostsParseState extends State<JsonPostsParse> {
   bool _loading = true;
   ScrollController _scrollController = ScrollController();
   List<Post> _fullList = [];
-  int _currentMax = 15;
+  //int _currentMax = 15;
 
   @override
   void initState() {
@@ -37,12 +37,12 @@ class _JsonPostsParseState extends State<JsonPostsParse> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        _getMoreData();
+        //_getMoreData();
       }
     });
   }
 
-  _getMoreData() {
+  /*_getMoreData() {
     //print("Get more data");
 
     if (_currentMax < 90) {
@@ -66,7 +66,7 @@ class _JsonPostsParseState extends State<JsonPostsParse> {
         setState(() {});
       }
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
